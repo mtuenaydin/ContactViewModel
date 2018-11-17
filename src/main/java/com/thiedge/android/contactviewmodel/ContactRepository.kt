@@ -20,19 +20,19 @@ class ContactRepository constructor(private var context: Context) {
 
     val contacts: MutableLiveData<List<Contact>> = MutableLiveData()
     private var executor: Executor
-    private var profilesToRetrieve: Map<String, String>
     private var defaultDataColumnName: String
+    var profilesToReceive: Map<String, String>
 
     constructor(context: Context, executor: Executor, profilesToRetrieve: Map<String, String>, defaultDataColumnName : String = "data1") : this(context) {
         this.executor = executor
-        this.profilesToRetrieve = profilesToRetrieve
+        this.profilesToReceive = profilesToRetrieve
         this.defaultDataColumnName = defaultDataColumnName
     }
 
     init {
         contacts.value = mutableListOf()
         executor  = Executors.newSingleThreadExecutor()
-        profilesToRetrieve =  DefaultProfiles.profiles
+        profilesToReceive =  DefaultProfiles.profiles
         defaultDataColumnName  = "data1"
     }
 
@@ -96,17 +96,17 @@ class ContactRepository constructor(private var context: Context) {
 
     private fun retrieveProfiles(contactId: String) : MutableMap<String, String> {
         val profiles = mutableMapOf<String, String>()
-        val projection = arrayOf(ContactsContract.Data.MIMETYPE) + profilesToRetrieve.values.distinct()
+        val projection = arrayOf(ContactsContract.Data.MIMETYPE) + profilesToReceive.values.distinct()
         val selection = ContactsContract.Data.CONTACT_ID + " = ? AND " +
-                ContactsContract.Data.MIMETYPE + " IN ( " + placeholder(profilesToRetrieve.size) + ") "
-        val selectionArgs = arrayOf(contactId) + profilesToRetrieve.keys
+                ContactsContract.Data.MIMETYPE + " IN ( " + placeholder(profilesToReceive.size) + ") "
+        val selectionArgs = arrayOf(contactId) + profilesToReceive.keys
         val cursor = context.contentResolver.query(ContactsContract.Data.CONTENT_URI,
             projection, selection, selectionArgs, null)
 
         while (cursor != null && cursor.moveToNext()) {
             val type = cursor.getString(0)
-            val index = cursor.getColumnIndex( if (profilesToRetrieve.containsKey(type))
-                profilesToRetrieve[type]!! else defaultDataColumnName)
+            val index = cursor.getColumnIndex( if (profilesToReceive.containsKey(type))
+                profilesToReceive[type]!! else defaultDataColumnName)
 
             if (index == -1)
                 throw Exception("Couldn't find $type column in CONTENT_URI.")

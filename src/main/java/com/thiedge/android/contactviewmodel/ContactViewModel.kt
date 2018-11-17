@@ -26,6 +26,10 @@ class ContactViewModel constructor(application: Application)
         contactRepository.getContacts(uri, projection, selection, selectionArgs, sortOrder)
     }
 
+    fun setProfilesToReceive(profiles: Map<String, String>){
+        contactRepository.profilesToReceive = profiles
+    }
+
     companion object {
         val DEFAULT_CONTACT_PROJECTION: Array<String> = arrayOf(
             ContactsContract.Contacts._ID,

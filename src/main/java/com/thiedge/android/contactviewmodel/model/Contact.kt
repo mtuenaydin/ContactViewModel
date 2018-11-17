@@ -13,7 +13,7 @@ class Contact {
     var photoUri: Uri? = null
     var thumbnailUri: Uri? = null
 
-    fun hasType(type:String): Boolean = profiles.containsKey(type)
+    fun hasProfile(type:String): Boolean = profiles.containsKey(type)
     fun hasWhatsApp(): Boolean = profiles.containsKey(DefaultProfiles.WHATSAPP.first)
     fun hasTelegram(): Boolean = profiles.containsKey(DefaultProfiles.TELEGRAM.first)
     fun hasSignal(): Boolean = profiles.containsKey(DefaultProfiles.SIGNAL.first)
