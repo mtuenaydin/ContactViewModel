@@ -10,14 +10,19 @@ You need to add the following permission to your manifest
 
 and add the following dependency to your gradle file
 ```javascript
+repositories {
+    maven {
+        url  "https://dl.bintray.com/mtunaydin/android"
+    }
+}
+
 dependencies {
-  
-  implementation "androidx.lifecycle:lifecycle-extensions:2.0.0+"
-  kapt "androidx.lifecycle:lifecycle-compiler:2.0.0+"
+  implementation 'android:ContactViewModel:0.6'
 }
 ```
+Note: You have to migrate to AndroidX to use this library
 
-This Libraray is using LiveData (Version 2.0.0 or higher is required)
+This Libraray is using ViewModel and LiveData (Version 2.0.0 or higher is required)
 
 ```javascript
 implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
@@ -101,4 +106,4 @@ if (contact.hasProfile("vnd.android.cursor.item/email_v2") {
 # Feedback
 If you have any suggestion to make the library easier to user or extend the functionality feel free to open an issue or by directly making a pull request :)
 
-Don't forget to <3 if you liked the Library
+Don't forget to :star: this repo if you liked the Library
