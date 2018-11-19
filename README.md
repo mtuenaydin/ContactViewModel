@@ -10,12 +10,6 @@ You need to add the following permission to your manifest
 
 and add the following dependency to your gradle file
 ```javascript
-repositories {
-    maven {
-        url  "https://dl.bintray.com/mtunaydin/android"
-    }
-}
-
 dependencies {
   implementation 'com.thiedge.android:contact-viewmodel:0.6'
 }
