@@ -20,7 +20,7 @@ dependencies {
   implementation 'com.thiedge.android:contact-viewmodel:0.6'
 }
 ```
-Note: You must migrate to AndroidX to use this library
+**Note: You must migrate to AndroidX to use this library**
 
 This Libraray is using ViewModel and LiveData (Version 2.0.0 or higher is required)
 
