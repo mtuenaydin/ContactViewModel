@@ -48,8 +48,8 @@ dependencies {
 
 publish {
     userOrg = 'mtunaydin'
-    groupId = 'android'
-    artifactId = 'ContactViewModel'
+    groupId = 'com.thiedge.android'
+    artifactId = 'contact-viewmodel'
     publishVersion = '0.6'
     repoName = 'android'
     desc = 'An Android Library to access the local contact list via a simple ViewModel '
