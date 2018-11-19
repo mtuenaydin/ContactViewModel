@@ -28,17 +28,21 @@ This Libraray is using ViewModel and LiveData (Version 2.0.0 or higher is requir
 implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
 ```
 
-
 # How to use it?
-The easiest and quickest way to get all contact names can be achieved as followed:
+The easiest and quickest way to receive all contacts (with their default profiles)
 
 ```kotlin
 // MainActivity#onCreate
 val viewModel = ViewModelProviders.of(this).get(ContactViewModel::class.java)
-var contacts: LiveData<List<Contact>> = viewModel.getContacts() 
+var contacts: LiveData<List<Contact>> = viewModel.getContacts()
 ```
+This will load the contacts in an asynchronous thread with the following projections
+* CONTACT_ID
+* DISPLAY_NAME_PRIMARY
+* PHOTO_URI
+* PHOTO_THUMBNAIL_URI
 
-If you the default columns aren’t enough for you, you can change the default projection:
+To change the default projection, you can parametrize the ```getContent``` method with your own projection
 
 ```kotlin
 val myNewProjection: Array<String> = arrayOf(
@@ -57,7 +61,7 @@ viewModel.contacts.observe(this, Observer {
         })
 ```
 
-The Contact class contains a map which stores the profiles from the contact, where the key is the MimeType and the value the column which stores the account. 
+The Contact class contains a map which stores the profiles from the contact. The key is representing the MimeType and the value the column which stores the account data.
 
 Example
 
@@ -81,7 +85,7 @@ you can easily extend this list by adding your own profile map
 val myProfiles = mapOf(DefaultProfiles.NUMBER,
                         DefaultProfiles.MAIL,
                         Pair("vnd.android.cursor.item/vnd.org.telegram.messenger.android.profile", "data1"))
-                        
+
 viewModel.setProfilesToReceive(myProfiles)
 ```
 If you want to check if the contact has WhatsApp
